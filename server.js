@@ -1,10 +1,14 @@
 const express = require('express')
+var cors = require('cors')
 const speech = require('@google-cloud/speech');
 
 // Creates a client
 const client = new speech.SpeechClient();
 const app = express()
 const port = 8080
+
+app.use(cors())
+app.use(express.json()) // for parsing application/json
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -17,9 +21,8 @@ app.post('/scoreVoiceRecording', async (req, res) => {
         uri: gcs_uri,
     };
     const config = {
-        // encoding: 'LINEAR16',
         encoding: 'WEBM_OPUS',
-        sampleRateHertz: 16000,
+        audioChannelCount: 2,
         languageCode: 'en-US',
     };
     const request = {
@@ -29,14 +32,24 @@ app.post('/scoreVoiceRecording', async (req, res) => {
 
     // Send recording GCP bucket link to GCP NLP API
     // Detects speech in the audio file
-    const [response] = await client.recognize(request);
-    const transcription = response.results
-        .map(result => result.alternatives[0].transcript)
-        .join('\n');
-    console.log(`Transcription: ${transcription}`);
+    let returnObj = {
+        score: 0,
+        transcription: '',
+    };
+    try {
+        const [response] = await client.recognize(request);
+        const score = response.results["0"].alternatives["0"].confidence;
+        const transcription = response.results["0"].alternatives["0"].transcript;
 
+        returnObj.score = score;
+        returnObj.transcription = transcription;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
     // Return score to client
-    return transcription.confidence;
+    console.log(returnObj);
+    return res.send(returnObj);
 })
 
 app.listen(port, () => {

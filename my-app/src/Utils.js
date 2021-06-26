@@ -44,11 +44,15 @@ utils.postVoiceRecording = async function(
     var ref = storage.ref().child(filename);
     let snapshot = await ref.put(blob);
     console.log('Uploaded a blob or file!');
+    console.log('ref:');
+    console.log(ref);
+    console.log('snapshot:');
     console.log(snapshot);
 
     // Score voice recording with backend server
-    let gcs_uri = snapshot.uri;
-    const res = await axios.post('https://localhost:8080/scoreVoiceRecording',
+    let gcs_uri = `gs://${snapshot.ref.storage._delegate._bucket.bucket}/${filename}`;
+    console.log(gcs_uri);
+    const res = await axios.post('http://localhost:8080/scoreVoiceRecording',
         {
             exercise_name: exercise_name,
             exercise_word: exercise_word,
@@ -59,7 +63,15 @@ utils.postVoiceRecording = async function(
             }
         }
     );
-    let score = res.data.body*100;
+    let score = Math.round(res.data.score*100);
+    let transcription = res.data.transcription;
+    // TODO: include minor optimization once this utility gets called in different ways
+    // if (transcription !== exercise_word) {
+    //     console.log(`Got ${transcription} but was expecting ${exercise_word}`);
+    //     return null;
+    // }
+    // console.log(score);
+    // console.log(transcription);
 
     // Save recording metadata to GCP Firestore
     let datetime_str = Date().toLocaleString();
@@ -75,9 +87,11 @@ utils.postVoiceRecording = async function(
     } catch (error) {
         console.error("Error adding document: ", error);
     }
-
     // return client
-    return score;
+    return {
+        score: score,
+        transcription: transcription,
+    };
 }
 
 utils.getVoiceRecording = function(db) {
