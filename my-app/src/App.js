@@ -120,8 +120,6 @@ class App extends React.Component {
     console.log("recording");
   }
   render() {
-
-
     return (
       <div className="App">
         <h5>Module 1: Lesson 2</h5>
