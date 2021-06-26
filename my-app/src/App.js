@@ -1,31 +1,15 @@
 import './App.css';
 import React from "react";
 import firebase from "firebase";
+import utils from "./Utils";
 
 export default function App() {
     const firebaseApp = firebase.apps[0];
 
     let db = firebaseApp.firestore();
 
-    // // trivial write example
-    // db.collection("users").add({
-    //     first: "Ada",
-    //     last: "Lovelace",
-    //     born: 1815
-    // })
-    // .then((docRef) => {
-    //     console.log("Document written with ID: ", docRef.id);
-    // })
-    // .catch((error) => {
-    //     console.error("Error adding document: ", error);
-    // });
-
-    // trivial read example
-    db.collection("users").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${doc.data()}`);
-        });
-    });
+    // utils.writeTrivialData(db);
+    utils.getTrivialData(db);
 
     return (
       <div>
