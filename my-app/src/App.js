@@ -8,6 +8,11 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { makeStyles } from '@material-ui/core/styles';
 import { ReactMic } from 'react-mic';
 import utils from "./Utils";
+import Home from './home';
+import Explore from './explore';
+import LessonVideo from './lesson_video';
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+
 
 const useStyles = makeStyles({
   root : {
@@ -78,37 +83,37 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="App">
-        <h5>Module 1: Lesson 2</h5>
-        <ReactMic
-          record={this.state.record}
-          className="sound-wave"
-          onStop={this.onStop}
-          onData={this.onData}
-          channelCount={2}     // defaults -> 2 (stereo).  Specify 1 for mono.
-          strokeColor="#111"
-          backgroundColor="#fcfcfc"
-        />
-        <button
-          style={{ marginTop: 25, marginBottom: 25 }}
-          color="blue"
-          onClick={this.startRecording}
-        >
-          Record a sound
-        </button>
-        <button onClick={this.stopRecording}>Stop</button>
-        <button onClick={this.downloadRecording}>Download</button>
-        <p>{this.state.blobURL}</p>
-        <BottomNavigation showLabels>
-           <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-           <BottomNavigationAction label="Learn" icon={<RecordVoiceOverIcon />} />
-           <BottomNavigationAction label="Account" icon={<AccountBoxIcon />} />
-         </BottomNavigation>
-                 
-      </div>
+        <Router>
+            <div>
+            <nav>
+                <ul>
+                <li>
+                    <Link to="/">Home</Link>
+                </li>
+                <li>
+                    <Link to="/explore">Explore</Link>
+                </li>
+                <li>
+                    <Link to="/lesson">Lesson</Link>
+                </li>
+                </ul>
+            </nav>
+    
+            {/* A <Switch> looks through its children <Route>s and
+                renders the first one that matches the current URL. */}
+            <Switch>
+                <Route path="/explore">
+                <Explore />
+                </Route>
+                <Route path="/lesson">
+                <LessonVideo />
+                </Route>
+                <Route path="/">
+                <Home />
+                </Route>
+            </Switch>
+            </div>
+        </Router>
     );
   }
 }
-
-export default App;
-
