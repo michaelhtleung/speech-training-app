@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Explore from './Explore';
+import LessonVideo from './Lesson_video'
 import reportWebVitals from './reportWebVitals';
 import firebase from "firebase/app";
 // load in firebase secrets
-import object from './firebase_secrets.json'
+import object from './firebase_secrets.json';
 
 // Use your config values here.
 firebase.initializeApp(object);
