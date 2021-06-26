@@ -9,7 +9,7 @@ export default function App() {
     let db = firebaseApp.firestore();
 
     // utils.writeTrivialData(db);
-    utils.getTrivialData(db);
+    // utils.getTrivialData(db);
 
     return (
       <div>

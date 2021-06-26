@@ -24,4 +24,13 @@ utils.getTrivialData = function(db) {
     });
 }
 
+utils.getLineGraphData = function(db) {
+}
+
+utils.postVoiceRecording = function(db) {
+}
+
+utils.getVoiceRecording = function(db) {
+}
+
 export default utils;
