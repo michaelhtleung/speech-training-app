@@ -23,50 +23,6 @@ const headingStyle = {
   textAlign: 'center',
 };
 
-
-// const navBarStyle = {
-//   "bottom: 0"
-// };
-// export function Apps() {
-//     const firebaseApp = firebase.apps[0];
-//     const classes = useStyles();
-
-//     let db = firebaseApp.firestore();
-
-//     // // trivial write example
-//     // db.collection("users").add({
-//     //     first: "Ada",
-//     //     last: "Lovelace",
-//     //     born: 1815
-//     // })
-//     // .then((docRef) => {
-//     //     console.log("Document written with ID: ", docRef.id);
-//     // })
-//     // .catch((error) => {
-//     //     console.error("Error adding document: ", error);
-//     // });
-
-//     // trivial read example
-//     db.collection("users").get().then((querySnapshot) => {
-//         querySnapshot.forEach((doc) => {
-//             console.log(`${doc.id} => ${doc.data()}`);
-//         });
-//     });
-
-//     return (
-//       <div>
-//         <h5>Module 1: Lesson 2</h5>
-        
-
-//         <BottomNavigation showLabels className={classes.root}>
-//           <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-//           <BottomNavigationAction label="Learn" icon={<RecordVoiceOverIcon />} />
-//           <BottomNavigationAction label="Account" icon={<AccountBoxIcon />} />
-//         </BottomNavigation>
-//       </div>
-//   );
-// }
-
 class App extends React.Component {
   constructor(props) {
     super(props);
