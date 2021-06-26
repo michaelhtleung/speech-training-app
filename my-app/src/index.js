@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import firebase from "firebase/app";
+// load in firebase secrets
+import object from './firebase_secrets.json'
+
+// Use your config values here.
+firebase.initializeApp(object);
 
 ReactDOM.render(
   <React.StrictMode>
