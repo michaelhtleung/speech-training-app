@@ -96,24 +96,24 @@ class App extends React.Component {
     self.setState({
       blobURL: recordedBlob.blobURL,
       recordedBlob: recordedBlob.blob,
-        // recordedBlob: recordedBlob,
     });
   };
 
-  downloadRecording = () => {
+  downloadRecording = async () => {
     let filename = 'foo.webm';
     let exercise_name = 'foo exercise';
     let exercise_word = 'apple';
-    let score = utils.postVoiceRecording(
+    let {score, transcription} = await utils.postVoiceRecording(
         this.state.db,
         this.state.storage,
         filename,
-        // new Blob(this.state.recordedBlob, {type: "audio/mpeg-3"}),
         this.state.recordedBlob,
         exercise_name,
         exercise_word
     );
+    console.log('in downloadRecording:')
     console.log(score);
+    console.log(transcription);
   }
 
   onData() {
