@@ -7,6 +7,7 @@ import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { makeStyles } from '@material-ui/core/styles';
 import { ReactMic } from 'react-mic';
+import utils from "./Utils";
 
 const useStyles = makeStyles({
   root : {
@@ -71,7 +72,10 @@ class App extends React.Component {
     this.onStop = this.onStop.bind(this);
     this.state = {
       sound: null,
-      record: false
+      record: false,
+      db: firebase.apps[0].firestore(),
+      // Get a reference to the storage service, which is used to create references in your storage bucket
+      storage: firebase.storage(),
     };
   }
   startRecording = () => {
@@ -91,42 +95,33 @@ class App extends React.Component {
     console.log(recordedBlob);
     self.setState({
       blobURL: recordedBlob.blobURL,
-      recordedBlob: recordedBlob
+      // recordedBlob: recordedBlob.blob,
+        recordedBlob: recordedBlob,
     });
   };
 
   downloadRecording = () => {
-    let newBlob = new Blob(this.state.recordedBlob, { type: "audio/mpeg-3" });
+    let filename = 'foo';
+    let exercise_name = 'foo exercise';
+    let exercise_word = 'apple';
+    let score = utils.postVoiceRecording(
+        this.state.db,
+        this.state.storage,
+        filename,
+        // new Blob(this.state.recordedBlob, {type: "audio/mpeg-3"}),
+        this.state.recordedBlob,
+        exercise_name,
+        exercise_word
+    );
+    console.log(score);
   }
 
   onData() {
     console.log("recording");
   }
   render() {
-    const firebaseApp = firebase.apps[0];
-    // const classes = useStyles();
 
-    let db = firebaseApp.firestore();
 
-    // // trivial write example
-    // db.collection("users").add({
-    //     first: "Ada",
-    //     last: "Lovelace",
-    //     born: 1815
-    // })
-    // .then((docRef) => {
-    //     console.log("Document written with ID: ", docRef.id);
-    // })
-    // .catch((error) => {
-    //     console.error("Error adding document: ", error);
-    // });
-
-    // trivial read example
-    db.collection("users").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${doc.data()}`);
-        });
-    });
     return (
       <div className="App">
         <h5>Module 1: Lesson 2</h5>
