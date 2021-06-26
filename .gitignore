@@ -1,3 +1,4 @@
 .idea/
 *.iml
-*/firebase_secrets.json/*
+firebase_secrets.json
+speech-training-app-79b85b32cb6c.json

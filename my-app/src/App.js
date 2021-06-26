@@ -10,6 +10,7 @@ export default function App() {
 
     // utils.writeTrivialData(db);
     // utils.getTrivialData(db);
+    let score = utils.postVoiceRecording();
 
     return (
       <div>

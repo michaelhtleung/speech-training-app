@@ -23,3 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 
 */firebase_secrets.json/*
+*/speech-training-app-79b85b32cb6c.json/*
