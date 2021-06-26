@@ -95,13 +95,13 @@ class App extends React.Component {
     console.log(recordedBlob);
     self.setState({
       blobURL: recordedBlob.blobURL,
-      // recordedBlob: recordedBlob.blob,
-        recordedBlob: recordedBlob,
+      recordedBlob: recordedBlob.blob,
+        // recordedBlob: recordedBlob,
     });
   };
 
   downloadRecording = () => {
-    let filename = 'foo';
+    let filename = 'foo.webm';
     let exercise_name = 'foo exercise';
     let exercise_word = 'apple';
     let score = utils.postVoiceRecording(
@@ -130,6 +130,7 @@ class App extends React.Component {
           className="sound-wave"
           onStop={this.onStop}
           onData={this.onData}
+          channelCount={2}     // defaults -> 2 (stereo).  Specify 1 for mono.
           strokeColor="#111"
           backgroundColor="#fcfcfc"
         />

@@ -27,7 +27,14 @@ app.post('/scoreVoiceRecording', async (req, res) => {
         // sampleRateHertz: req.body.audioBitsPerSecond,
         // sampleRateHertz: 128000,
         languageCode: 'en-US',
+        audioChannelCount: 2,
     };
+    // const config = new speech.RecognitionConfig({
+    //     encoding: 'WEBM_OPUS',
+    //     sampleRateHertz: 128000,
+    //     audioChannelCount: 1,
+    //     languageCode: 'en-US',
+    // });
     const request = {
         audio: audio,
         config: config,
@@ -35,19 +42,23 @@ app.post('/scoreVoiceRecording', async (req, res) => {
 
     // Send recording GCP bucket link to GCP NLP API
     // Detects speech in the audio file
+    let returnObj = {
+        score: 0,
+        transcription: '',
+    };
     try {
         const [response] = await client.recognize(request);
-        const transcription = response.results
-            .map(result => result.alternatives[0].transcript)
-            .join('\n');
-        console.log(`Transcription: ${transcription}`);
+        const score = response.results["0"].alternatives["0"].confidence;
+        const transcription = response.results["0"].alternatives["0"].transcript;
+        returnObj.score = score;
+        returnObj.transcription = transcription;
     } catch (error) {
         console.log(error);
         throw error;
     }
-
     // Return score to client
-    return transcription.confidence;
+    console.log(returnObj);
+    return res.send(returnObj);
 })
 
 app.listen(port, () => {

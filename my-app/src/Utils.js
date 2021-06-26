@@ -63,7 +63,10 @@ utils.postVoiceRecording = async function(
             }
         }
     );
-    let score = res.data.body*100;
+    let score = res.data.score*100;
+    let transcription = res.data.transcription;
+    console.log(score);
+    console.log(transcription);
 
     // Save recording metadata to GCP Firestore
     let datetime_str = Date().toLocaleString();
