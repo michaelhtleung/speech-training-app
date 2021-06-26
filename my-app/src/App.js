@@ -5,12 +5,21 @@ import utils from "./Utils";
 
 export default function App() {
     const firebaseApp = firebase.apps[0];
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    var storage = firebase.storage();
 
     let db = firebaseApp.firestore();
 
     // utils.writeTrivialData(db);
     // utils.getTrivialData(db);
-    let score = utils.postVoiceRecording();
+    let score = utils.postVoiceRecording(
+        db,
+        storage,
+        filename,
+        blob,
+        exercise_name,
+        exercise_word
+    );
 
     return (
       <div>
