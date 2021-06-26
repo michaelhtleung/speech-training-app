@@ -95,7 +95,7 @@ class App extends React.Component {
     });
   };
 
-  downloadRecording() {
+  downloadRecording = () => {
     let newBlob = new Blob(this.state.recordedBlob, { type: "audio/mpeg-3" });
   }
 
