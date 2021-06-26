@@ -3,7 +3,7 @@ import React from "react";
 import firebase from "firebase";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import YoutubeEmbed from './components/youtube_embed';
+import YoutubeEmbed from './components/Youtube_embed';
 
 
 const useStyles = makeStyles((theme) => ({

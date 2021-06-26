@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Explore from './explore';
-import LessonVideo from './lesson_video'
+import Explore from './Explore';
+import LessonVideo from './Lesson_video'
 import reportWebVitals from './reportWebVitals';
 import firebase from "firebase/app";
 // load in firebase secrets
