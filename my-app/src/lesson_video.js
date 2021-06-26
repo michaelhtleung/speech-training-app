@@ -68,7 +68,7 @@ export default function LessonVideo() {
 
     return (
         <div>
-            <YoutubeEmbed embedId="rokGy0huYEA" />
+            <YoutubeEmbed embedId="_v2xYMHjxEQ" />
             <h4>Module 1</h4>
             <h1>Long Vowels</h1>
             <div>

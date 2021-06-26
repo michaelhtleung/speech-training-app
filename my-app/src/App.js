@@ -1,6 +1,11 @@
 import './App.css';
 import React from "react";
 import firebase from "firebase";
+import Home from './home';
+import Explore from './explore';
+import LessonVideo from './lesson_video';
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+
 
 export default function App() {
     const firebaseApp = firebase.apps[0];
@@ -28,12 +33,36 @@ export default function App() {
     });
 
     return (
-      <div>
-        <h1>React & Firebase</h1>
-        <h2>By @farazamiruddin</h2>
-        <code>
-          <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre>
-        </code>
-      </div>
-  );
+        <Router>
+            <div>
+            <nav>
+                <ul>
+                <li>
+                    <Link to="/">Home</Link>
+                </li>
+                <li>
+                    <Link to="/explore">Explore</Link>
+                </li>
+                <li>
+                    <Link to="/lesson">Lesson</Link>
+                </li>
+                </ul>
+            </nav>
+    
+            {/* A <Switch> looks through its children <Route>s and
+                renders the first one that matches the current URL. */}
+            <Switch>
+                <Route path="/explore">
+                <Explore />
+                </Route>
+                <Route path="/lesson">
+                <LessonVideo />
+                </Route>
+                <Route path="/">
+                <Home />
+                </Route>
+            </Switch>
+            </div>
+        </Router>
+    );
 }
