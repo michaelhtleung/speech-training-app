@@ -50,6 +50,7 @@ app.post('/scoreVoiceRecording', async (req, res) => {
         const [response] = await client.recognize(request);
         const score = response.results["0"].alternatives["0"].confidence;
         const transcription = response.results["0"].alternatives["0"].transcript;
+
         returnObj.score = score;
         returnObj.transcription = transcription;
     } catch (error) {
