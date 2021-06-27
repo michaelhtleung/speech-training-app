@@ -202,10 +202,8 @@ const useStyles = makeStyles({
         color: '#4361EE',
     }
 });
-  
-const headingStyle = {
-    textAlign: 'center',
-};
+
+// let exerciseWords = ['Book', 'Cheese', 'Cool'];
 
 function Exercise(props) {
     const classes = useStyles();
@@ -219,6 +217,9 @@ function Exercise(props) {
 
     const [scoreValue, setScoreValue] = useState(null);
     const [recordingState, setRecordingState] = useState('recordingInitial');
+    const [exerciseWordIndex, setExerciseWordIndex] = useState(1);
+    const [exerciseWords, setExerciseWords] = useState(['Book', 'Cheese', 'Cool']);
+    const [exerciseWord, setExerciseWord] = useState(exerciseWords[exerciseWordIndex]);
 
     let scoreSection = null;
     let scoreWord = null;
@@ -268,29 +269,43 @@ function Exercise(props) {
 
     function onStop(recordedBlob) {
         console.log(recordedBlob);
+        console.log(`onStop: ${exerciseWordIndex}`);
         downloadRecording(recordedBlob.blob);
     }
 
     async function downloadRecording(blob) {
-        let filename = 'cheese.webm';
-        let exercise_name = 'cheese exercise';
-        let exercise_word = 'cheese';
+        // let exercise_word = exerciseWords[exerciseWordIndex];
+        let filename = `${exerciseWord}.webm`;
+        let exercise_name = `${exerciseWord} exercise`;
         let {score, transcription} = await utils.postVoiceRecording(
             db,
             storage,
             filename,
             blob,
             exercise_name,
-            exercise_word
+            exerciseWord,
         );
         console.log('in downloadRecording:')
-        console.log(score);
-        console.log(transcription);
         setScoreValue(score);
+        console.log(`score: ${score}`);
+        console.log(`transcription attempt: ${transcription}`);
+        console.log(`exerciseWord ground truth: ${exerciseWord}`);
     }
 
     function onData() {
         console.log("recording");
+    }
+
+    function nextWord() {
+        setExerciseWordIndex( (exerciseWordIndex+3+1) % 3 );
+        setExerciseWord(exerciseWords[exerciseWordIndex]);
+        console.log(`exerciseWordIndex: ${exerciseWordIndex}`);
+    }
+
+    function prevWord() {
+        setExerciseWordIndex( (exerciseWordIndex+3-1) % 3 );
+        setExerciseWord(exerciseWords[exerciseWordIndex]);
+        console.log(`exerciseWordIndex: ${exerciseWordIndex}`);
     }
 
     return (
@@ -302,9 +317,9 @@ function Exercise(props) {
                 <h5 className={classes.h5}>Module 1: Lesson 2</h5>
             </div>
             <div className={classes.exerciseWordRow}>
-                <div className={classes.inactiveWord}>Book</div>
-                <div className={classes.activeWord}>Cheese</div>
-                <div className={classes.inactiveWord}>Tool</div>
+                <div className={exerciseWordIndex === 0 ? classes.activeWord : classes.inactiveWord}>{exerciseWords[0]}</div>
+                <div className={exerciseWordIndex === 1 ? classes.activeWord : classes.inactiveWord}>{exerciseWords[1]}</div>
+                <div className={exerciseWordIndex === 2 ? classes.activeWord : classes.inactiveWord}>{exerciseWords[2]}</div>
             </div>
             <ReactMic
                 record={record}
@@ -319,9 +334,9 @@ function Exercise(props) {
             <div className={classes.recordingSection}>
                 {recordingSectionTitle}
                 <div className={classes.buttonRow}>
-                    <div className={classes.cycleWord}>Prev Word</div>
+                    <div className={classes.cycleWord} onClick={prevWord}>Prev Word</div>
                     {recordButton}
-                    <div className={classes.cycleWord}>Next Word</div>
+                    <div className={classes.cycleWord} onClick={nextWord}>Next Word</div>
                 </div>
             </div>
         </div>

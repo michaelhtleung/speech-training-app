@@ -65,7 +65,7 @@ utils.postVoiceRecording = async function(
     );
     let score = Math.round(res.data.score*100);
     let transcription = res.data.transcription;
-    if (transcription !== exercise_word) {
+    if (transcription.toLowerCase() !== exercise_word.toLowerCase()) {
         score = 0;
         console.log(`Got ${transcription} but was expecting ${exercise_word}`);
     }
