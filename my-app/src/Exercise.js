@@ -9,20 +9,6 @@ import {ReactMic} from 'react-mic';
 import utils from "./Utils";
 
 
-const useStyles = makeStyles({
-    root : {
-      width: '100%',
-      backgroundColor: "#FFFFFF",
-      borderTop: '1px solid gray',
-      position: 'fixed',
-      bottom: 0,
-    }
-})
-  
-const headingStyle = {
-textAlign: 'center',
-};
-
 class Exercise extends React.Component {
     constructor(props) {
         super(props);

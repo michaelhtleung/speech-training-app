@@ -7,9 +7,12 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import image from './background_img.jpeg'
+import { Button } from '@material-ui/core';
 // import AppBar from '@material-ui/core/AppBar';
 // import Tabs from '@material-ui/core/Tabs';
 // import Tab from '@material-ui/core/Tab';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,10 +21,25 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    minWidth: 275,
   },
   gridList: {
-    flexWrap: 'nowrap'
+    flexWrap: 'nowrap',
+    
+  },
+  gridListTile: {
+    borderRadius: '10px',
+    height: "300px !important",
+  },
+  gridListImage: {
+    height: '200px'
+  },
+  gridListImageDescription: {
+    
+  },
+  extraGridListTile: {
+    width: '90% !important',
+    height: '100% !important',
+    marginBottom: '10px'
   },
   bullet: {
     display: 'inline-block',
@@ -38,28 +56,38 @@ const useStyles = makeStyles((theme) => ({
 
 const tileData = [
     {
-      title: 'title'
+      image: image, 
+      title: 'Module 1: Lesson 1',
+      description: "Long Vowels"
     },
     {
-      title: 'title'
+      image: image,
+      title: 'Module 1: Lesson 2',
+      description: 'Constants'
     },
     {
-      title: 'title'
+      image: image,
+      title: 'Modeule 1: Lesson 3',
+      description: 'Numbers'
     }
 ];
 
 const tileDataExtra = [
     {
-      title: 'titlee',
-      subtitle: 'module1'
+      title: 'Bonus Module 1',
+      subtitle: 'Practice 1'
     },
     {
-      title: 'titlee',
-      subtitle: 'module2'
+      title: 'Bonus Module 1',
+      subtitle: 'Practice 2'
     },
     {
-      title: 'titlee',
-      subtitle: 'module3'
+      title: 'Bonus Module 2',
+      subtitle: 'Practice 1'
+    },
+    {
+      title: 'Bonus Module 2',
+      subtitle: 'Practice 1'
     }
 ];
 
@@ -93,34 +121,44 @@ export default function Explore() {
     // });
 
     return (
+        <div className={'exploreParentDiv'}>
+        <p className={'exploreHeader'}>Learn</p>
+        <span className={'exploreUpcoming'}>Upcoming</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span className={'exploreCompleted'}>Completed</span>
+        <p className={'exploreMainLessons'}>Main Lessons</p>
         <div>
-        <h1>Learn</h1>
-        {/* tab panel */}
-        <div>
-            <h3>Main Lessons</h3>
             <div>
-                <GridList className={classes.gridList} cols={2.5}>
+                <GridList className={classes.gridList} spacing={20} cols={1.5}>
                     {tileData.map((tile) => (
-                    <GridListTile> {/* key={tile.img}>
-                        <img src={tile.img} alt={tile.title} />*/}
-                        <GridListTileBar
-                            title={tile.title}
-                        />
+                    <GridListTile className={classes.gridListTile} key={tile.image}>
+                  
+                      <img className={classes.gridListImage} src={tile.image} alt={tile.title} />
+                      <p className={'exploreModule'}>{tile.title}</p>
+                      <p className={'exploreImageDescription'}>{tile.description}</p>
+                 
+                    
                     </GridListTile>
                     ))}
                 </GridList>
+                
             </div>
         </div>
+        <Button variant="contained" color="primary" className={'exploreGridStart'}><span className={'exploreGridStartText'}>Start</span></Button>
         <div>
-            <h3>Extra</h3>
+          <p className={'exploreExtraLessonsHeader'}>Extra Lessons</p>
             <div>
                 <GridList cols={1}>
                     {tileDataExtra.map((tile) => (
-                    <GridListTile>
-                        <Card className={classes.root}>
+                    <GridListTile className={classes.extraGridListTile}>
+                        <Card>
                             <CardContent>
-                                <h4>{tile.subtitle}</h4>
-                                <h2>{tile.title}</h2>
+                            <p className={'exploreExtraLessonsTitle'}>{tile.title}</p>
+                            {/* <Button className={'exploreExtraLessonsButton'} variant="contained" color="primary">
+                              Primary
+                            </Button> */}
+                            
+                            <p className={'exploreExtraLessonsSubTitle'}>{tile.subtitle}</p>
                             </CardContent>
                         </Card>
                     </GridListTile>
