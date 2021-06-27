@@ -204,7 +204,7 @@ function Exercise(props) {
     const [storage, setStorage] = useState(firebase.storage());
     const [recordedBlob, setRecordedBlob] = useState(null);
 
-    const [scoreValue, setScoreValue] = useState(0);
+    const [scoreValue, setScoreValue] = useState(null);
 
     let scoreSection = null;
     let scoreWord = null;
@@ -241,9 +241,9 @@ function Exercise(props) {
     }
 
     async function downloadRecording() {
-        let filename = 'foo.webm';
-        let exercise_name = 'foo exercise';
-        let exercise_word = 'apple';
+        let filename = 'cheese.webm';
+        let exercise_name = 'cheese exercise';
+        let exercise_word = 'cheese';
         let {score, transcription} = await utils.postVoiceRecording(
             db,
             storage,
@@ -255,6 +255,7 @@ function Exercise(props) {
         console.log('in downloadRecording:')
         console.log(score);
         console.log(transcription);
+        setScoreValue(score);
     }
 
     function onData() {
