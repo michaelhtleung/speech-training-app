@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -34,48 +34,36 @@ const headingStyle = {
     textAlign: 'center',
 };
 
-class Exercise extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onStop = this.onStop.bind(this);
-        this.state = {
-        sound: null,
-        record: false,
-        db: firebase.apps[0].firestore(),
-        // Get a reference to the storage service, which is used to create references in your storage bucket
-        storage: firebase.storage(),
-        };
+function Exercise(props) {
+    const [sound, setSound] = useState(null);
+    const [record, setRecord] = useState(false);
+    const [db, setDb] = useState(firebase.apps[0].firestore());
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    const [storage, setStorage] = useState(firebase.storage());
+    const [recordedBlob, setRecordedBlob] = useState(null);
+
+    function startRecording() {
+        setRecord(true);
     }
-    startRecording = () => {
-        this.setState({
-        record: true
-        });
-    };
 
-    stopRecording = () => {
-        this.setState({
-        record: false
-        });
-    };
+    function stopRecording() {
+        setRecord(false);
+    }
 
-    onStop = recordedBlob => {
-        const self = this;
+    function onStop(recordedBlob) {
         console.log(recordedBlob);
-        self.setState({
-        blobURL: recordedBlob.blobURL,
-        recordedBlob: recordedBlob.blob,
-        });
-    };
+        setRecordedBlob(recordedBlob.blob);
+    }
 
-    downloadRecording = async () => {
+    async function downloadRecording() {
         let filename = 'foo.webm';
         let exercise_name = 'foo exercise';
         let exercise_word = 'apple';
         let {score, transcription} = await utils.postVoiceRecording(
-            this.state.db,
-            this.state.storage,
+            db,
+            storage,
             filename,
-            this.state.recordedBlob,
+            recordedBlob,
             exercise_name,
             exercise_word
         );
@@ -84,11 +72,11 @@ class Exercise extends React.Component {
         console.log(transcription);
     }
 
-    onData() {
+    function onData() {
         console.log("recording");
     }
-    render() {
-        return (
+
+    return (
         <div className="App">
             <div>
                 <IconButton color="primary" aria-label="return to previous page">
@@ -97,10 +85,10 @@ class Exercise extends React.Component {
                 <h5>Module 1: Lesson 2</h5>
             </div>
             <ReactMic
-                record={this.state.record}
+                record={record}
                 className="sound-wave"
-                onStop={this.onStop}
-                onData={this.onData}
+                onStop={onStop}
+                onData={onData}
                 channelCount={2}     // defaults -> 2 (stereo).  Specify 1 for mono.
                 strokeColor="#111"
                 backgroundColor="#fcfcfc"
@@ -108,16 +96,14 @@ class Exercise extends React.Component {
             <button
                 style={{ marginTop: 25, marginBottom: 25 }}
                 color="blue"
-                onClick={this.startRecording}
+                onClick={startRecording}
             >
             Record a sound
             </button>
-            <button onClick={this.stopRecording}>Stop</button>
-            <button onClick={this.downloadRecording}>Download</button>
-            <p>{this.state.blobURL}</p> 
+            <button onClick={stopRecording}>Stop</button>
+            <button onClick={downloadRecording}>Download</button>
         </div>
-        );
-    }
+    );
 }
 
 export default Exercise;
