@@ -35,15 +35,14 @@ const useStyles = makeStyles({
         width: '24px',
         height: '24px',
         left: '24px',
-        top: '56px',
         opacity: '0.5',
+        padding: '24px 0',
     },
     h5: {
         position: 'absolute',
         width: '139px',
         height: '24px',
         left: '118px',
-        top: '56px',
         'font-family': 'Heebo',
         'font-style': 'normal',
         'font-weight': 'normal',
@@ -53,8 +52,61 @@ const useStyles = makeStyles({
         'text-align': 'center',
         color: '#000000',
         opacity: '0.5',
+        margin: 0,
+        padding: '12px 0',
     },
-})
+    topBar: {
+        height: '48px',
+    },
+    exerciseWordRow: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        'justify-content': 'space-evenly',
+    },
+    activeWord: {
+        'font-family': 'Heebo',
+        'font-style': 'normal',
+        'font-weight': '500',
+        'font-size': '40px',
+        'line-height': '59px',
+        'text-align': 'center',
+        color: '#000000',
+    },
+    inactiveWord: {
+        'font-family': 'Heebo',
+        'font-style': 'normal',
+        'font-weight': '500',
+        'font-size': '40px',
+        'line-height': '59px',
+        /* identical to box height */
+        color: '#000000',
+        opacity: '0.4',
+    },
+    scoreSection: {
+        display: 'flex',
+        'margin-left': 'auto',
+        'margin-right': 'auto',
+        'flex-direction': 'column',
+        'align-items': 'center',
+    },
+    recordingSection: {
+        display: 'flex',
+        'flex-direction': 'column',
+        'align-items': 'center',
+        position: 'absolute',
+        bottom: '0',
+    },
+    buttonRow: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        'justify-content': 'space-between',
+    },
+    soundWave: {
+        width: "100%",
+    }
+});
   
 const headingStyle = {
     textAlign: 'center',
@@ -113,20 +165,20 @@ function Exercise(props) {
                 <h5 className={classes.h5}>Module 1: Lesson 2</h5>
             </div>
             <div className={classes.exerciseWordRow}>
-                <div className={classes.prevWord}>Book</div>
+                <div className={classes.inactiveWord}>Book</div>
                 <div className={classes.activeWord}>Cheese</div>
-                <div className={classes.nextWord}>Tool</div>
+                <div className={classes.inactiveWord}>Tool</div>
             </div>
             <ReactMic
                 record={record}
-                className="sound-wave"
+                className={classes.soundWave}
                 onStop={onStop}
                 onData={onData}
                 channelCount={2}     // defaults -> 2 (stereo).  Specify 1 for mono.
                 strokeColor="#111"
                 backgroundColor="#fcfcfc"
             />
-            <div>
+            <div className={classes.scoreSection}>
                 <Chip className={classes.score_word} label="Excellent" />
                 <div className={classes.score_value}>
                     92/100
