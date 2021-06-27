@@ -1,6 +1,8 @@
 import './App.css';
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import HomeIcon from '@material-ui/icons/Home';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -10,17 +12,26 @@ import utils from "./Utils";
 
 
 const useStyles = makeStyles({
-    root : {
-      width: '100%',
-      backgroundColor: "#FFFFFF",
-      borderTop: '1px solid gray',
-      position: 'fixed',
-      bottom: 0,
+    // root : {
+    //   width: '100%',
+    //   backgroundColor: "#FFFFFF",
+    //   borderTop: '1px solid gray',
+    //   position: 'fixed',
+    //   bottom: 0,
+    // },
+    exercisePage: {
+        position: 'absolute',
+        width: '375px',
+        height: '751px',
+        left: '0px',
+        top: '0px',
+        'overflow-y': 'scroll',
+        background: '#FFFFFF',
     }
 })
   
 const headingStyle = {
-textAlign: 'center',
+    textAlign: 'center',
 };
 
 class Exercise extends React.Component {
@@ -79,7 +90,12 @@ class Exercise extends React.Component {
     render() {
         return (
         <div className="App">
-            <h5>Module 1: Lesson 2</h5>
+            <div>
+                <IconButton color="primary" aria-label="return to previous page">
+                    <ArrowBackIcon />
+                </IconButton>
+                <h5>Module 1: Lesson 2</h5>
+            </div>
             <ReactMic
                 record={this.state.record}
                 className="sound-wave"
