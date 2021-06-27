@@ -51,6 +51,10 @@ export default function Footer() {
     // });
 
     return (
+        <div>
+        <div className={'footerDiv'}>
+
+        </div>
         <BottomNavigation
             showLabels
             className={classes.root}
@@ -80,5 +84,6 @@ export default function Footer() {
                 icon={<box-icon name='dumbbell'></box-icon>}
             />
         </BottomNavigation>
+        </div>
     );
 }

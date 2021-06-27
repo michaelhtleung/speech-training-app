@@ -37,7 +37,248 @@
   }
 }
 
+.exploreExtraLessonsHeader {
+  /* width: 126px;
+  height: 29px;
+
+font-family: Heebo;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+line-height: 29px;
+
+color: #000000; */
+font-size: 20px;
+}
+
+.exploreGridStartText {
+width: 40px;
+height: 17px;
+
+
+font-family: Inconsolata;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 17px;
+/* identical to box height */
+
+
+color: #FFFFFF;
+
+
+/* Inside Auto Layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 0px 8px;
+}
+
+.exploreGridStart {
+  display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px;
+
+margin-top: 10px !important;
+width: 236px;
+height: 40px;
+
+
+/* Blue/Main */
+
+background: #4361EE;
+border-radius: 4px;
+
+/* Inside Auto Layout */
+
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+margin: 0px 0px;
+}
+
+.exploreImageDescription {
+  font-family: Heebo;
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 35px;
+
+color: #000000;
+
+
+/* Inside Auto Layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+margin: 0px 0px;
+}
+
+.exploreExtraLessonsTitle {
+  height: 24px;
+
+  font-family: Heebo;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 23px;
+/* identical to box height */
+
+
+color: #000000;
+
+opacity: 0.5;
+
+/* Inside Auto Layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 0px 0px;
+}
+
+.exploreExtraLessonsSubTitle {
+  
+  width: 91px;
+  height: 29px;
+
+font-family: Heebo;
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 29px;
+
+color: #000000;
+
+
+/* Inside Auto Layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+margin: 0px 0px;
+}
+
+.exploreHeader {
+  width: 81px;
+  height: 47px;
+
+  font-family: Heebo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 47px;
+  /* identical to box height */
+
+
+  color: #000000;
+}
+
+.exploreUpcoming {
+width: 110px;
+height: 35px;
+
+font-family: Heebo;
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 35px;
+
+color: #000000;
+}
+
+.exploreCompleted {
+  width: 118px;
+  height: 35px;
+
+font-family: Heebo;
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 35px;
+
+color: #000000;
+
+opacity: 0.4;
+}
+
+.exploreExtraLessonsButton {
+  display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px;
+
+position: static;
+width: 40px;
+height: 40px;
+left: 271px;
+top: 22.5px;
+
+/* BG / Dark */
+
+background: #161B25;
+border-radius: 4px;
+
+/* Inside Auto Layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+margin: 0px 8px;
+}
+
+
+.exploreMainLessons {
+  /* width: 125px;
+  height: 29px;
+
+font-family: Heebo;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+line-height: 29px;
+
+color: #000000; */
+font-size: 20px;
+}
+
+.exploreModule {
+  font-family: Heebo;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 23px;
+/* identical to box height */
+
+
+color: #000000;
+
+opacity: 0.5;
+
+/* Inside Auto Layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 0px 0px;
+}
+
 .footer {
   position: 'absolute';
   bottom: 0;
 }
+
+.exploreParentDiv {
+  margin-left: 24px;
+}
+
+.footerDiv {
+  height: 90px;
+}
+
