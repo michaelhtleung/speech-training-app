@@ -177,7 +177,10 @@ const useStyles = makeStyles({
         display: 'flex',
         'flex-direction': 'row',
         'align-items': 'center',
-        'justify-content': 'space-between',
+        'justify-content': 'space-evenly',
+        width: '100%',
+        'margin-top': '32px',
+        'margin-bottom': '64px',
     },
     soundWave: {
         width: "100%",
@@ -227,15 +230,19 @@ function Exercise(props) {
         </div>;
     }
 
+    let recordingSectionTitle = null;
     let recordButton = null;
     if (recordingState === 'recordingInitial') {
-        recordButton = <box-icon size='lg' name='chevron-right-circle' type='solid' onClick={startRecording}></box-icon>
+        recordingSectionTitle = <div>Click to start recording</div>
+        recordButton = <box-icon size='lg' color='#4361EE' name='chevron-right-circle' type='solid' onClick={startRecording}></box-icon>
         // recordButton = <box-icon className={classes[recordingState]} name='chevron-right-circle' type='solid' onClick={startRecording}></box-icon>
         // recordButton = <box-icon type='solid' name='circle' ></box-icon>
     } else if (recordingState === 'recording') {
-        recordButton = <box-icon size='lg' name='circle' onClick={stopRecording}></box-icon>;
+        recordingSectionTitle = <div>Click to end recording</div>
+        recordButton = <box-icon size='lg' color='#4361EE' name='circle' onClick={stopRecording}></box-icon>;
     } else if (recordingState === 'waitingToRecord') {
-        recordButton = <box-icon size='lg' name='play-circle' onClick={startRecording}></box-icon>;
+        recordingSectionTitle = <div>Click to start recording</div>
+        recordButton = <box-icon size='lg't st color='#4361EE' name='play-circle' onClick={startRecording}></box-icon>;
     }
 
     function startRecording() {
@@ -299,11 +306,10 @@ function Exercise(props) {
             />
             {scoreSection}
             <div className={classes.recordingSection}>
-                <div>Hold to start recording</div>
+                {recordingSectionTitle}
                 <div className={classes.buttonRow}>
                     <div>Prev Word</div>
                     {recordButton}
-
                     <div>Next Word</div>
                 </div>
             </div>
