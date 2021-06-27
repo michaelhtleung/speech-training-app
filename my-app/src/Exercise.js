@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Chip from '@material-ui/core/Chip';
+import 'boxicons';
 
 import HomeIcon from '@material-ui/icons/Home';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
@@ -14,13 +14,6 @@ import utils from "./Utils";
 
 
 const useStyles = makeStyles({
-    // root : {
-    //   width: '100%',
-    //   backgroundColor: "#FFFFFF",
-    //   borderTop: '1px solid gray',
-    //   position: 'fixed',
-    //   bottom: 0,
-    // },
     exercisePage: {
         position: 'absolute',
         width: '375px',
@@ -205,6 +198,7 @@ function Exercise(props) {
     const [recordedBlob, setRecordedBlob] = useState(null);
 
     const [scoreValue, setScoreValue] = useState(null);
+    const [recordingState, setRecordingState] = useState(null);
 
     let scoreSection = null;
     let scoreWord = null;
@@ -227,20 +221,31 @@ function Exercise(props) {
         </div>;
     }
 
+    let recordButton = null;
+    if (recordingState === null) {
+        recordButton = <box-icon type='solid' name='circle' onClick={startRecording}></box-icon>
+    } else if (recordingState === 'recording') {
+        recordButton = <box-icon name='circle' onClick={stopRecording}></box-icon>;
+    } else if (recordingState === 'waitingToRecord') {
+        recordButton = <box-icon name='play-circle' onClick={startRecording}></box-icon>;
+    }
+
     function startRecording() {
+        setRecordingState('recording');
         setRecord(true);
     }
 
     function stopRecording() {
+        setRecordingState('waitingToRecord');
         setRecord(false);
     }
 
     function onStop(recordedBlob) {
         console.log(recordedBlob);
-        setRecordedBlob(recordedBlob.blob);
+        downloadRecording(recordedBlob.blob);
     }
 
-    async function downloadRecording() {
+    async function downloadRecording(blob) {
         let filename = 'cheese.webm';
         let exercise_name = 'cheese exercise';
         let exercise_word = 'cheese';
@@ -248,7 +253,7 @@ function Exercise(props) {
             db,
             storage,
             filename,
-            recordedBlob,
+            blob,
             exercise_name,
             exercise_word
         );
@@ -289,15 +294,8 @@ function Exercise(props) {
                 <div>Hold to start recording</div>
                 <div className={classes.buttonRow}>
                     <div>Prev Word</div>
-                    <button
-                        style={{ marginTop: 25, marginBottom: 25 }}
-                        color="blue"
-                        onClick={startRecording}
-                    >
-                    Record a sound
-                    </button>
-                    <button onClick={stopRecording}>Stop</button>
-                    <button onClick={downloadRecording}>Download</button>
+                    {recordButton}
+
                     <div>Next Word</div>
                 </div>
             </div>
