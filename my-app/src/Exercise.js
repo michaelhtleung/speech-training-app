@@ -32,7 +32,6 @@ const useStyles = makeStyles({
     },
     h5: {
         position: 'absolute',
-        width: '139px',
         height: '24px',
         left: '118px',
         'font-family': 'Heebo',
@@ -49,6 +48,8 @@ const useStyles = makeStyles({
     },
     topBar: {
         height: '48px',
+        'margin-top': '56px',
+        'margin-bottom': '96px',
     },
     exerciseWordRow: {
         display: 'flex',
@@ -183,11 +184,22 @@ const useStyles = makeStyles({
     },
     soundWave: {
         width: "100%",
+        height: "150px",
     },
     recordingInitial: {
         width: '64px',
         height: '64px',
         filter: 'drop-shadow(0px 10px 30px rgba(67, 97, 238, 0.25))',
+    },
+    cycleWord: {
+        'font-family': 'Inconsolata',
+        'font-style': 'normal',
+        'font-weight': 'normal',
+        'font-size': '16px',
+        'line-height': '17px',
+        /* identical to box height */
+        /* Blue/Main */
+        color: '#4361EE',
     }
 });
   
@@ -307,9 +319,9 @@ function Exercise(props) {
             <div className={classes.recordingSection}>
                 {recordingSectionTitle}
                 <div className={classes.buttonRow}>
-                    <div>Prev Word</div>
+                    <div className={classes.cycleWord}>Prev Word</div>
                     {recordButton}
-                    <div>Next Word</div>
+                    <div className={classes.cycleWord}>Next Word</div>
                 </div>
             </div>
         </div>
