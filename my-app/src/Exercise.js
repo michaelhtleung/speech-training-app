@@ -1,6 +1,10 @@
 import './App.css';
-import React from "react";
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import 'boxicons';
+
 import HomeIcon from '@material-ui/icons/Home';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -8,86 +12,335 @@ import firebase from "firebase";
 import {ReactMic} from 'react-mic';
 import utils from "./Utils";
 
-
-class Exercise extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onStop = this.onStop.bind(this);
-        this.state = {
-        sound: null,
-        record: false,
-        db: firebase.apps[0].firestore(),
-        // Get a reference to the storage service, which is used to create references in your storage bucket
-        storage: firebase.storage(),
-        };
+const useStyles = makeStyles({
+    exercisePage: {
+        position: 'absolute',
+        width: '375px',
+        height: '751px',
+        left: '0px',
+        top: '0px',
+        'overflow-y': 'scroll',
+        background: '#FFFFFF',
+    },
+    iconButton: {
+        position: 'absolute',
+        width: '24px',
+        height: '24px',
+        left: '24px',
+        opacity: '0.5',
+        padding: '24px 0',
+    },
+    h5: {
+        position: 'absolute',
+        height: '24px',
+        left: '118px',
+        'font-family': 'Heebo',
+        'font-style': 'normal',
+        'font-weight': 'normal',
+        'font-size': '16px',
+        'line-height': '23px',
+        /* identical to box height */
+        'text-align': 'center',
+        color: '#000000',
+        opacity: '0.5',
+        margin: 0,
+        padding: '12px 0',
+    },
+    topBar: {
+        height: '48px',
+        'margin-top': '56px',
+        'margin-bottom': '96px',
+    },
+    exerciseWordRow: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        'justify-content': 'space-evenly',
+    },
+    activeWord: {
+        'font-family': 'Heebo',
+        'font-style': 'normal',
+        'font-weight': '500',
+        'font-size': '40px',
+        'line-height': '59px',
+        'text-align': 'center',
+        color: '#000000',
+    },
+    inactiveWord: {
+        'font-family': 'Heebo',
+        'font-style': 'normal',
+        'font-weight': '500',
+        'font-size': '40px',
+        'line-height': '59px',
+        /* identical to box height */
+        color: '#000000',
+        opacity: '0.4',
+    },
+    scoreSection: {
+        display: 'flex',
+        'margin-left': 'auto',
+        'margin-right': 'auto',
+        'flex-direction': 'column',
+        'align-items': 'center',
+    },
+    Excellent: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        padding: '4px 8px',
+        width: '73px',
+        height: '29px',
+        left: '16px',
+        top: '16px',
+        /* Purple/Light */
+        background: '#F9F6FE',
+        'border-radius': '4px',
+        'flex-direction': 'row',
+        'justify-content': 'center',
+        '& div': {
+            /* Purple/Main */
+            color: '#7A43EE',
+        }
+    },
+    Good: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        padding: '4px 8px',
+        width: '73px',
+        height: '29px',
+        left: '16px',
+        top: '16px',
+        /* Blue/Light */
+        background: '#F6F8FE',
+        'border-radius': '4px',
+        'flex-direction': 'row',
+        'justify-content': 'center',
+        '& div': {
+            /* Blue/Main */
+            color: '#4361EE',
+        }
+    },
+    Average: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        padding: '4px 8px',
+        width: '73px',
+        height: '29px',
+        left: '16px',
+        top: '16px',
+        /* Orange/Light */
+        background: '#FEFAF6',
+        'border-radius': '4px',
+        'flex-direction': 'row',
+        'justify-content': 'center',
+        '& div': {
+            /* Orange/Main */
+            color: '#BA6E27',
+        }
+    },
+    Retry: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        padding: '4px 8px',
+        width: '73px',
+        height: '29px',
+        left: '16px',
+        top: '16px',
+        background: '#F5F5F5',
+        'border-radius': '4px',
+        'flex-direction': 'row',
+        'justify-content': 'center',
+        '& div': {
+            color: '#363636',
+        }
+    },
+    scoreValue: {
+        'font-family': 'Heebo',
+        'font-style': 'normal',
+        'font-weight': '500',
+        'font-size': '24px',
+        'line-height': '35px',
+        'color': '#000000',
+    },
+    recordingSection: {
+        display: 'flex',
+        'flex-direction': 'column',
+        'align-items': 'center',
+        position: 'absolute',
+        bottom: '0',
+        width: '100%',
+    },
+    buttonRow: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        'justify-content': 'space-evenly',
+        width: '100%',
+        'margin-top': '32px',
+        'margin-bottom': '64px',
+    },
+    soundWave: {
+        width: "100%",
+        height: "150px",
+    },
+    recordingInitial: {
+        width: '64px',
+        height: '64px',
+        filter: 'drop-shadow(0px 10px 30px rgba(67, 97, 238, 0.25))',
+    },
+    cycleWord: {
+        'font-family': 'Inconsolata',
+        'font-style': 'normal',
+        'font-weight': 'normal',
+        'font-size': '16px',
+        'line-height': '17px',
+        /* identical to box height */
+        /* Blue/Main */
+        color: '#4361EE',
     }
-    startRecording = () => {
-        this.setState({
-        record: true
-        });
-    };
+});
 
-    stopRecording = () => {
-        this.setState({
-        record: false
-        });
-    };
+// let exerciseWords = ['Book', 'Cheese', 'Cool'];
 
-    onStop = recordedBlob => {
-        const self = this;
+function Exercise(props) {
+    const classes = useStyles();
+
+    const [sound, setSound] = useState(null);
+    const [record, setRecord] = useState(false);
+    const [db, setDb] = useState(firebase.apps[0].firestore());
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    const [storage, setStorage] = useState(firebase.storage());
+    const [recordedBlob, setRecordedBlob] = useState(null);
+
+    const [scoreValue, setScoreValue] = useState(null);
+    const [recordingState, setRecordingState] = useState('recordingInitial');
+    const [exerciseWordIndex, setExerciseWordIndex] = useState(1);
+    const [exerciseWords, setExerciseWords] = useState(['Book', 'Cheese', 'Cool']);
+    const [exerciseWord, setExerciseWord] = useState(exerciseWords[exerciseWordIndex]);
+
+    let scoreSection = null;
+    let scoreWord = null;
+    if (scoreValue !== null) {
+        if (scoreValue >= 75) {
+            scoreWord = 'Excellent';
+        } else if (scoreValue >= 50) {
+            scoreWord = 'Good';
+        } else if (scoreValue >= 25) {
+            scoreWord = 'Average';
+        } else if (scoreValue >= 0) {
+            scoreWord = 'Retry';
+        }
+        scoreSection =
+        <div className={classes.scoreSection}>
+            <div className={classes[scoreWord]}>
+                <div>{scoreWord}</div>
+            </div>
+            <div className={classes.scoreValue}>{scoreValue}/100</div>
+        </div>;
+    }
+
+    let recordingSectionTitle = null;
+    let recordButton = null;
+    if (recordingState === 'recordingInitial') {
+        recordingSectionTitle = <div>Click to start recording</div>
+        recordButton = <box-icon size='lg' color='#4361EE' name='chevron-right-circle' type='solid' onClick={startRecording}></box-icon>
+        // recordButton = <box-icon className={classes[recordingState]} name='chevron-right-circle' type='solid' onClick={startRecording}></box-icon>
+        // recordButton = <box-icon type='solid' name='circle' ></box-icon>
+    } else if (recordingState === 'recording') {
+        recordingSectionTitle = <div>Click to end recording</div>
+        recordButton = <box-icon size='lg' color='#4361EE' name='circle' onClick={stopRecording}></box-icon>;
+    } else if (recordingState === 'waitingToRecord') {
+        recordingSectionTitle = <div>Click to start recording</div>
+        recordButton = <box-icon size='lg't st color='#4361EE' name='play-circle' onClick={startRecording}></box-icon>;
+    }
+
+    function startRecording() {
+        setRecordingState('recording');
+        setRecord(true);
+    }
+
+    function stopRecording() {
+        setRecordingState('waitingToRecord');
+        setRecord(false);
+    }
+
+    function onStop(recordedBlob) {
         console.log(recordedBlob);
-        self.setState({
-        blobURL: recordedBlob.blobURL,
-        recordedBlob: recordedBlob.blob,
-        });
-    };
+        console.log(`onStop: ${exerciseWordIndex}`);
+        downloadRecording(recordedBlob.blob);
+    }
 
-    downloadRecording = async () => {
-        let filename = 'foo.webm';
-        let exercise_name = 'foo exercise';
-        let exercise_word = 'apple';
+    async function downloadRecording(blob) {
+        // let exercise_word = exerciseWords[exerciseWordIndex];
+        let filename = `${exerciseWord}.webm`;
+        let exercise_name = `${exerciseWord} exercise`;
         let {score, transcription} = await utils.postVoiceRecording(
-            this.state.db,
-            this.state.storage,
+            db,
+            storage,
             filename,
-            this.state.recordedBlob,
+            blob,
             exercise_name,
-            exercise_word
+            exerciseWord,
         );
         console.log('in downloadRecording:')
-        console.log(score);
-        console.log(transcription);
+        setScoreValue(score);
+        console.log(`score: ${score}`);
+        console.log(`transcription attempt: ${transcription}`);
+        console.log(`exerciseWord ground truth: ${exerciseWord}`);
     }
 
-    onData() {
+    function onData() {
         console.log("recording");
     }
-    render() {
-        return (
-        <div className="App">
-            <h5>Module 1: Lesson 2</h5>
+
+    function nextWord() {
+        setExerciseWordIndex( (exerciseWordIndex+3+1) % 3 );
+        setExerciseWord(exerciseWords[exerciseWordIndex]);
+        console.log(`exerciseWordIndex: ${exerciseWordIndex}`);
+    }
+
+    function prevWord() {
+        setExerciseWordIndex( (exerciseWordIndex+3-1) % 3 );
+        setExerciseWord(exerciseWords[exerciseWordIndex]);
+        console.log(`exerciseWordIndex: ${exerciseWordIndex}`);
+    }
+
+    return (
+        <div className={classes.exercisePage}>
+            <div className={classes.topBar}>
+                <IconButton className={classes.iconButton} color="primary" aria-label="return to previous page">
+                    <ArrowBackIcon />
+                </IconButton>
+                <h5 className={classes.h5}>Module 1: Lesson 2</h5>
+            </div>
+            <div className={classes.exerciseWordRow}>
+                <div className={exerciseWordIndex === 0 ? classes.activeWord : classes.inactiveWord}>{exerciseWords[0]}</div>
+                <div className={exerciseWordIndex === 1 ? classes.activeWord : classes.inactiveWord}>{exerciseWords[1]}</div>
+                <div className={exerciseWordIndex === 2 ? classes.activeWord : classes.inactiveWord}>{exerciseWords[2]}</div>
+            </div>
             <ReactMic
-                record={this.state.record}
-                className="sound-wave"
-                onStop={this.onStop}
-                onData={this.onData}
+                record={record}
+                className={classes.soundWave}
+                onStop={onStop}
+                onData={onData}
                 channelCount={2}     // defaults -> 2 (stereo).  Specify 1 for mono.
                 strokeColor="#111"
                 backgroundColor="#fcfcfc"
             />
-            <button
-                style={{ marginTop: 25, marginBottom: 25 }}
-                color="blue"
-                onClick={this.startRecording}
-            >
-            Record a sound
-            </button>
-            <button onClick={this.stopRecording}>Stop</button>
-            <button onClick={this.downloadRecording}>Download</button>
-            <p>{this.state.blobURL}</p> 
+            {scoreSection}
+            <div className={classes.recordingSection}>
+                {recordingSectionTitle}
+                <div className={classes.buttonRow}>
+                    <div className={classes.cycleWord} onClick={prevWord}>Prev Word</div>
+                    {recordButton}
+                    <div className={classes.cycleWord} onClick={nextWord}>Next Word</div>
+                </div>
+            </div>
         </div>
-        );
-    }
+    );
 }
 
 export default Exercise;

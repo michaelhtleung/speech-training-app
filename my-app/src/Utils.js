@@ -65,13 +65,12 @@ utils.postVoiceRecording = async function(
     );
     let score = Math.round(res.data.score*100);
     let transcription = res.data.transcription;
-    // TODO: include minor optimization once this utility gets called in different ways
-    // if (transcription !== exercise_word) {
-    //     console.log(`Got ${transcription} but was expecting ${exercise_word}`);
-    //     return null;
-    // }
-    // console.log(score);
-    // console.log(transcription);
+    if (transcription.toLowerCase() !== exercise_word.toLowerCase()) {
+        score = 0;
+        console.log(`Got ${transcription} but was expecting ${exercise_word}`);
+    }
+    console.log(score);
+    console.log(transcription);
 
     // Save recording metadata to GCP Firestore
     let datetime_str = Date().toLocaleString();
