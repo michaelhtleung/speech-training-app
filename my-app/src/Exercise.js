@@ -181,6 +181,11 @@ const useStyles = makeStyles({
     },
     soundWave: {
         width: "100%",
+    },
+    recordingInitial: {
+        width: '64px',
+        height: '64px',
+        filter: 'drop-shadow(0px 10px 30px rgba(67, 97, 238, 0.25))',
     }
 });
   
@@ -199,7 +204,7 @@ function Exercise(props) {
     const [recordedBlob, setRecordedBlob] = useState(null);
 
     const [scoreValue, setScoreValue] = useState(null);
-    const [recordingState, setRecordingState] = useState(null);
+    const [recordingState, setRecordingState] = useState('recordingInitial');
 
     let scoreSection = null;
     let scoreWord = null;
@@ -223,13 +228,14 @@ function Exercise(props) {
     }
 
     let recordButton = null;
-    if (recordingState === null) {
-        recordButton = <box-icon name='chevron-right-circle' type='solid' onClick={startRecording}></box-icon>
+    if (recordingState === 'recordingInitial') {
+        recordButton = <box-icon size='lg' name='chevron-right-circle' type='solid' onClick={startRecording}></box-icon>
+        // recordButton = <box-icon className={classes[recordingState]} name='chevron-right-circle' type='solid' onClick={startRecording}></box-icon>
         // recordButton = <box-icon type='solid' name='circle' ></box-icon>
     } else if (recordingState === 'recording') {
-        recordButton = <box-icon name='circle' onClick={stopRecording}></box-icon>;
+        recordButton = <box-icon size='lg' name='circle' onClick={stopRecording}></box-icon>;
     } else if (recordingState === 'waitingToRecord') {
-        recordButton = <box-icon name='play-circle' onClick={startRecording}></box-icon>;
+        recordButton = <box-icon size='lg' name='play-circle' onClick={startRecording}></box-icon>;
     }
 
     function startRecording() {
