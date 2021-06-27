@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Chip from '@material-ui/core/Chip';
+
 import HomeIcon from '@material-ui/icons/Home';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -27,7 +29,31 @@ const useStyles = makeStyles({
         top: '0px',
         'overflow-y': 'scroll',
         background: '#FFFFFF',
-    }
+    },
+    iconButton: {
+        position: 'absolute',
+        width: '24px',
+        height: '24px',
+        left: '24px',
+        top: '56px',
+        opacity: '0.5',
+    },
+    h5: {
+        position: 'absolute',
+        width: '139px',
+        height: '24px',
+        left: '118px',
+        top: '56px',
+        'font-family': 'Heebo',
+        'font-style': 'normal',
+        'font-weight': 'normal',
+        'font-size': '16px',
+        'line-height': '23px',
+        /* identical to box height */
+        'text-align': 'center',
+        color: '#000000',
+        opacity: '0.5',
+    },
 })
   
 const headingStyle = {
@@ -35,6 +61,8 @@ const headingStyle = {
 };
 
 function Exercise(props) {
+    const classes = useStyles();
+
     const [sound, setSound] = useState(null);
     const [record, setRecord] = useState(false);
     const [db, setDb] = useState(firebase.apps[0].firestore());
@@ -77,12 +105,17 @@ function Exercise(props) {
     }
 
     return (
-        <div className="App">
-            <div>
-                <IconButton color="primary" aria-label="return to previous page">
+        <div className={classes.exercisePage}>
+            <div className={classes.topBar}>
+                <IconButton className={classes.iconButton} color="primary" aria-label="return to previous page">
                     <ArrowBackIcon />
                 </IconButton>
-                <h5>Module 1: Lesson 2</h5>
+                <h5 className={classes.h5}>Module 1: Lesson 2</h5>
+            </div>
+            <div className={classes.exerciseWordRow}>
+                <div className={classes.prevWord}>Book</div>
+                <div className={classes.activeWord}>Cheese</div>
+                <div className={classes.nextWord}>Tool</div>
             </div>
             <ReactMic
                 record={record}
@@ -93,15 +126,28 @@ function Exercise(props) {
                 strokeColor="#111"
                 backgroundColor="#fcfcfc"
             />
-            <button
-                style={{ marginTop: 25, marginBottom: 25 }}
-                color="blue"
-                onClick={startRecording}
-            >
-            Record a sound
-            </button>
-            <button onClick={stopRecording}>Stop</button>
-            <button onClick={downloadRecording}>Download</button>
+            <div>
+                <Chip className={classes.score_word} label="Excellent" />
+                <div className={classes.score_value}>
+                    92/100
+                </div>
+            </div>
+            <div className={classes.recordingSection}>
+                <div>Hold to start recording</div>
+                <div className={classes.buttonRow}>
+                    <div>Prev Word</div>
+                    <button
+                        style={{ marginTop: 25, marginBottom: 25 }}
+                        color="blue"
+                        onClick={startRecording}
+                    >
+                    Record a sound
+                    </button>
+                    <button onClick={stopRecording}>Stop</button>
+                    <button onClick={downloadRecording}>Download</button>
+                    <div>Next Word</div>
+                </div>
+            </div>
         </div>
     );
 }
