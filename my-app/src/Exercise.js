@@ -122,6 +122,27 @@ function Exercise(props) {
     const [storage, setStorage] = useState(firebase.storage());
     const [recordedBlob, setRecordedBlob] = useState(null);
 
+    const [scoreValue, setScoreValue] = useState(92);
+
+    let scoreSection = null;
+    let scoreWord = null;
+    if (scoreValue !== null) {
+        if (scoreValue >= 75) {
+            scoreWord = 'Excellent';
+        } else if (scoreValue >= 50) {
+            scoreWord = 'Good';
+        } else if (scoreValue >= 25) {
+            scoreWord = 'Average';
+        } else if (scoreValue >= 0) {
+            scoreWord = 'Retry';
+        }
+        scoreSection =
+        <div className={classes.scoreSection}>
+            <Chip className={classes.score_word} label={scoreWord} />
+            <div className={classes.score_value}>{scoreValue}/100</div>
+        </div>;
+    }
+
     function startRecording() {
         setRecord(true);
     }
@@ -178,12 +199,8 @@ function Exercise(props) {
                 strokeColor="#111"
                 backgroundColor="#fcfcfc"
             />
-            <div className={classes.scoreSection}>
-                <Chip className={classes.score_word} label="Excellent" />
-                <div className={classes.score_value}>
-                    92/100
-                </div>
-            </div>
+            {scoreSection}
+
             <div className={classes.recordingSection}>
                 <div>Hold to start recording</div>
                 <div className={classes.buttonRow}>
