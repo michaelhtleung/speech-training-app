@@ -141,12 +141,7 @@ export default function Explore() {
                                     <Button size="medium" style={{backgroundColor: 'black', width: '40px', height: '40px'}} onClick={handleOnClick}><h5 className='button-font' style={{color: 'white'}}>→</h5></Button>
                                 </div>
                             </div>
-                            
-                            
                             </CardContent>
-                            {/* <CardActions style={{backgroundColor: "black"}}> */}
-                                
-                            {/* </CardActions> */}
                         </Card>
                     </GridListTile>
                     ))}
