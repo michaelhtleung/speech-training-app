@@ -1,6 +1,8 @@
 # Taco (speech-training-app)
 Taco provides guided and structured speech therapy for users to increase their speech abilities. Lessons contain an instructional video and practical exercise section. In the latter feature, users are given a word as a prompt and can record a short clip speaking the word. Using natural language processing, the app evaluates the accuracy of their voice clip and returns a score for how properly the word is spoken.
 
+[See images on DevPost.](https://devpost.com/software/taco-180hrj)
+
 ## Inspiration
 Taco was inspired by current events—the Covid-19 pandemic that we're all too familiar with. As vaccines are rolling out, we're all excited to start returning back to normal life. However, for recovering patients, there are many lasting effects to Covid-19. One common struggle is having difficulty with vocal and throat control after being in ventilation for a prolonged time. We wanted to tackle this area and see how technology can help patients get back on their feet and communicating with their loved ones as they once could.
 
