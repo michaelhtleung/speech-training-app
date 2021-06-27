@@ -28,6 +28,43 @@
   color: #61dafb;
 }
 
+h5.button-font {
+  font-family: Heebo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  font-family: Heebo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+}
+
+h2 {
+  font-family: Heebo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+h3 {
+  font-family: Heebo;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+h4 {
+  font-family: Heebo;
+  font-weight: normal;
+  font-size: 16px;
+  margin: 0;
+  padding: 1px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

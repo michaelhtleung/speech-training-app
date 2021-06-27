@@ -7,12 +7,7 @@ import Footer from './Footer';
 import LessonVideo from './Lesson_video';
 import Exercise from './Exercise';
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
-import { Button, BottomNavigation, BottomNavigationAction } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { makeStyles } from '@material-ui/core/styles';
-import { ReactMic } from 'react-mic';
 import utils from "./Utils";
 
 

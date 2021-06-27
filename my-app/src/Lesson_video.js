@@ -42,31 +42,6 @@ export default function LessonVideo() {
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
 
-
-    // const firebaseApp = firebase.apps[0];
-
-    // let db = firebaseApp.firestore();
-
-    // // // trivial write example
-    // // db.collection("users").add({
-    // //     first: "Ada",
-    // //     last: "Lovelace",
-    // //     born: 1815
-    // // })
-    // // .then((docRef) => {
-    // //     console.log("Document written with ID: ", docRef.id);
-    // // })
-    // // .catch((error) => {
-    // //     console.error("Error adding document: ", error);
-    // // });
-
-    // // trivial read example
-    // db.collection("users").get().then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //         console.log(`${doc.id} => ${doc.data()}`);
-    //     });
-    // });
-
     return (
         <div>
             <YoutubeEmbed embedId="_v2xYMHjxEQ" />
