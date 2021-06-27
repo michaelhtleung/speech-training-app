@@ -90,6 +90,88 @@ const useStyles = makeStyles({
         'flex-direction': 'column',
         'align-items': 'center',
     },
+    Excellent: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        padding: '4px 8px',
+        width: '73px',
+        height: '29px',
+        left: '16px',
+        top: '16px',
+        /* Purple/Light */
+        background: '#F9F6FE',
+        'border-radius': '4px',
+        'flex-direction': 'row',
+        'justify-content': 'center',
+        '& div': {
+            /* Purple/Main */
+            color: '#7A43EE',
+        }
+    },
+    Good: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        padding: '4px 8px',
+        width: '73px',
+        height: '29px',
+        left: '16px',
+        top: '16px',
+        /* Blue/Light */
+        background: '#F6F8FE',
+        'border-radius': '4px',
+        'flex-direction': 'row',
+        'justify-content': 'center',
+        '& div': {
+            /* Blue/Main */
+            color: '#4361EE',
+        }
+    },
+    Average: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        padding: '4px 8px',
+        width: '73px',
+        height: '29px',
+        left: '16px',
+        top: '16px',
+        /* Orange/Light */
+        background: '#FEFAF6',
+        'border-radius': '4px',
+        'flex-direction': 'row',
+        'justify-content': 'center',
+        '& div': {
+            /* Orange/Main */
+            color: '#BA6E27',
+        }
+    },
+    Retry: {
+        display: 'flex',
+        'flex-direction': 'row',
+        'align-items': 'center',
+        padding: '4px 8px',
+        width: '73px',
+        height: '29px',
+        left: '16px',
+        top: '16px',
+        background: '#F5F5F5',
+        'border-radius': '4px',
+        'flex-direction': 'row',
+        'justify-content': 'center',
+        '& div': {
+            color: '#363636',
+        }
+    },
+    scoreValue: {
+        'font-family': 'Heebo',
+        'font-style': 'normal',
+        'font-weight': '500',
+        'font-size': '24px',
+        'line-height': '35px',
+        'color': '#000000',
+    },
     recordingSection: {
         display: 'flex',
         'flex-direction': 'column',
@@ -122,7 +204,7 @@ function Exercise(props) {
     const [storage, setStorage] = useState(firebase.storage());
     const [recordedBlob, setRecordedBlob] = useState(null);
 
-    const [scoreValue, setScoreValue] = useState(92);
+    const [scoreValue, setScoreValue] = useState(0);
 
     let scoreSection = null;
     let scoreWord = null;
@@ -138,8 +220,10 @@ function Exercise(props) {
         }
         scoreSection =
         <div className={classes.scoreSection}>
-            <Chip className={classes.score_word} label={scoreWord} />
-            <div className={classes.score_value}>{scoreValue}/100</div>
+            <div className={classes[scoreWord]}>
+                <div>{scoreWord}</div>
+            </div>
+            <div className={classes.scoreValue}>{scoreValue}/100</div>
         </div>;
     }
 
@@ -200,7 +284,6 @@ function Exercise(props) {
                 backgroundColor="#fcfcfc"
             />
             {scoreSection}
-
             <div className={classes.recordingSection}>
                 <div>Hold to start recording</div>
                 <div className={classes.buttonRow}>
