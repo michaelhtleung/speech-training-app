@@ -171,6 +171,7 @@ const useStyles = makeStyles({
         'align-items': 'center',
         position: 'absolute',
         bottom: '0',
+        width: '100%',
     },
     buttonRow: {
         display: 'flex',
@@ -223,7 +224,8 @@ function Exercise(props) {
 
     let recordButton = null;
     if (recordingState === null) {
-        recordButton = <box-icon type='solid' name='circle' onClick={startRecording}></box-icon>
+        recordButton = <box-icon name='chevron-right-circle' type='solid' onClick={startRecording}></box-icon>
+        // recordButton = <box-icon type='solid' name='circle' ></box-icon>
     } else if (recordingState === 'recording') {
         recordButton = <box-icon name='circle' onClick={stopRecording}></box-icon>;
     } else if (recordingState === 'waitingToRecord') {
