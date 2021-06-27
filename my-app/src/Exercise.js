@@ -12,7 +12,6 @@ import firebase from "firebase";
 import {ReactMic} from 'react-mic';
 import utils from "./Utils";
 
-
 const useStyles = makeStyles({
     exercisePage: {
         position: 'absolute',

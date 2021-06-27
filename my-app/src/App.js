@@ -3,6 +3,7 @@ import React from "react";
 import firebase from "firebase";
 import Home from './Home';
 import Explore from './Explore';
+import Footer from './Footer';
 import LessonVideo from './Lesson_video';
 import Exercise from './Exercise';
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
@@ -85,24 +86,7 @@ class App extends React.Component {
   render() {
     return (
         <Router>
-            <div>
-            <nav>
-                <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/explore">Explore</Link>
-                </li>
-                <li>
-                    <Link to="/lesson">Lesson</Link>
-                </li>
-                <li>
-                    <Link to="/exercise">Exercise</Link>
-                </li>
-                </ul>
-            </nav>
-    
+        
             {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
             <Switch>
@@ -119,9 +103,11 @@ class App extends React.Component {
                     <Home />
                 </Route>
             </Switch>
-            </div>
+            <Footer />
+           
         </Router>
+        
     );
 }
 }
-export default App;
+export default App; 
