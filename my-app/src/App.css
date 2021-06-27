@@ -29,10 +29,11 @@
 }
 
 h5.button-font {
-  font-family: Heebo;
+  font-family: Inconsolata;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
+  text-transform: capitalize;
   text-align: center;
   margin: 0;
 }
@@ -89,7 +90,7 @@ font-size: 20px;
 }
 
 .exploreGridStartText {
-width: 40px;
+width: 120px;
 height: 17px;
 
 
@@ -98,6 +99,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 16px;
 line-height: 17px;
+text-transform: capitalize;
 /* identical to box height */
 
 
@@ -120,7 +122,7 @@ align-items: center;
 padding: 8px;
 
 margin-top: 10px !important;
-width: 236px;
+width: 200px;
 height: 40px;
 
 
@@ -317,5 +319,95 @@ margin: 0px 0px;
 
 .footerDiv {
   height: 90px;
+}
+
+.lessonTitle {
+  height: 24px;
+  
+  font-family: Heebo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 23px;
+  /* identical to box height */
+  
+  
+  color: #000000;
+  
+  opacity: 0.5;
+}
+
+.lessonSubTitle {
+  width: 184px;
+  height: 47px;
+
+  
+  font-family: Heebo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 47px;
+  /* identical to box height */
+  
+  
+  color: #000000;
+  
+}
+
+.lessonDescription {
+  width: 327px;
+
+font-family: Heebo;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 23px;
+margin-bottom: 60px;
+color: #000000;
+
+opacity: 0.6;
+}
+
+.lessonStart {
+  /* Auto Layout */
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 16px;
+
+width: 327px;
+height: 49px;
+
+/* Blue/Main */
+
+background: #4361EE;
+border-radius: 4px;
+}
+
+.lessonStartText {
+
+height: 17px;
+
+
+font-family: Inconsolata;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+text-transform: capitalize;
+line-height: 17px;
+/* identical to box height */
+
+
+color: #FFFFFF;
+
+
+/* Inside Auto Layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 0px 8px;
 }
 

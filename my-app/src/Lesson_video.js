@@ -4,6 +4,7 @@ import firebase from "firebase";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import YoutubeEmbed from './components/Youtube_embed';
+import {useHistory} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,22 +36,24 @@ const useStyles = makeStyles((theme) => ({
     // },
 }));
 
-const description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+const description = "A long vowel is a vowel that is pronounced the same as its name. For example, the word emu starts with the long E sound. A long vowel sounds can be spelled in four different ways and each way follows a specific spelling pattern. A vowel at the end of a syllable can be long. In the word we, as in We love emus, the vowel E is at the end of the syllable and says long E. In these words, the vowel at the end of a syllable is long: hero, hi, music. A silent E can also make the previous vowel long. In the word cute, as in Emus are cute, the long U sound is formed by adding Silent E at the end of the word."
+const des = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 
 export default function LessonVideo() {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
+    const routerHistory = useHistory();
+    const handleOnClick = () => routerHistory.push('/exercise');
 
     return (
         <div>
             <YoutubeEmbed embedId="_v2xYMHjxEQ" />
-            <h4 styles={{margin: '8px'}}>Module 1</h4>
-            <h1>Long Vowels</h1>
+            <div className={'exploreParentDiv'}>
+            <p className={'lessonTitle'}>Module 1: Lesson 2</p>
+            <h1 className={'lessonSubTitle'}>Long Vowels</h1>
             <div>
-                <p>{description}</p>
+                <p className={'lessonDescription'}>{description}</p>
+                <Button color="primary" className={'lessonStart'} variant="contained" onClick={handleOnClick}><span className={'lessonStartText'}>Start Exercise</span></Button>
             </div>
-            <div>
-                <Button variant="contained"><h3>Start Exercise</h3></Button>
             </div>
         </div>
   );

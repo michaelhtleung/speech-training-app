@@ -7,11 +7,15 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+
 import image from './background_img.jpeg'
 import { Button } from '@material-ui/core';
 // import AppBar from '@material-ui/core/AppBar';
 // import Tabs from '@material-ui/core/Tabs';
 // import Tab from '@material-ui/core/Tab';
+
+import {useHistory} from 'react-router-dom';
 
 
 
@@ -24,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
   },
   gridList: {
     flexWrap: 'nowrap',
-    
   },
   gridListTile: {
     borderRadius: '10px',
-    height: "300px !important",
+    height: "350px !important",
+    width: '236px'
   },
   gridListImage: {
     height: '200px'
@@ -37,14 +41,10 @@ const useStyles = makeStyles((theme) => ({
     
   },
   extraGridListTile: {
-    width: '90% !important',
+    width: '100% !important',
     height: '100% !important',
+    padding: '20px',
     marginBottom: '10px'
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
   },
   title: {
     fontSize: 14,
@@ -93,35 +93,11 @@ const tileDataExtra = [
 
 export default function Explore() {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
-
-
-    // const firebaseApp = firebase.apps[0];
-
-    // let db = firebaseApp.firestore();
-
-    // // // trivial write example
-    // // db.collection("users").add({
-    // //     first: "Ada",
-    // //     last: "Lovelace",
-    // //     born: 1815
-    // // })
-    // // .then((docRef) => {
-    // //     console.log("Document written with ID: ", docRef.id);
-    // // })
-    // // .catch((error) => {
-    // //     console.error("Error adding document: ", error);
-    // // });
-
-    // // trivial read example
-    // db.collection("users").get().then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //         console.log(`${doc.id} => ${doc.data()}`);
-    //     });
-    // });
+    const routerHistory = useHistory();
+    const handleOnClick = () => routerHistory.push('/lesson');
 
     return (
-        <div className={'exploreParentDiv'}>
+        <div style={{width: '90%', padding: '5%'}}>
         <p className={'exploreHeader'}>Learn</p>
         <span className={'exploreUpcoming'}>Upcoming</span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -133,10 +109,10 @@ export default function Explore() {
                     {tileData.map((tile) => (
                     <GridListTile className={classes.gridListTile} key={tile.image}>
                   
-                      <img className={classes.gridListImage} src={tile.image} alt={tile.title} />
+                      <img className={classes.gridListImage} src={tile.image} alt={tile.title} style={{borderRadius: '3%'}}/>
                       <p className={'exploreModule'}>{tile.title}</p>
                       <p className={'exploreImageDescription'}>{tile.description}</p>
-                 
+                      <Button variant="contained" color="primary" className={'exploreGridStart'} onClick={handleOnClick}><span className={'exploreGridStartText'}>Start →</span></Button>
                     
                     </GridListTile>
                     ))}
@@ -144,22 +120,33 @@ export default function Explore() {
                 
             </div>
         </div>
-        <Button variant="contained" color="primary" className={'exploreGridStart'}><span className={'exploreGridStartText'}>Start</span></Button>
         <div>
           <p className={'exploreExtraLessonsHeader'}>Extra Lessons</p>
             <div>
                 <GridList cols={1}>
                     {tileDataExtra.map((tile) => (
                     <GridListTile className={classes.extraGridListTile}>
-                        <Card>
+                        <Card variant='outlined'>
                             <CardContent>
-                            <p className={'exploreExtraLessonsTitle'}>{tile.title}</p>
-                            {/* <Button className={'exploreExtraLessonsButton'} variant="contained" color="primary">
-                              Primary
-                            </Button> */}
+                            <div class="row">
+                                <div style={{
+                                    float: 'left',
+                                    width: '80%'}}>
+                                    <p className={'exploreExtraLessonsTitle'}>{tile.title}</p>
+                                    <p className={'exploreExtraLessonsSubTitle'}>{tile.subtitle}</p>
+                                </div>
+                                <div style={{
+                                    float: 'left',
+                                    width: '20%'}}>
+                                    <Button size="medium" style={{backgroundColor: 'black', width: '40px', height: '40px'}} onClick={handleOnClick}><h5 className='button-font' style={{color: 'white'}}>→</h5></Button>
+                                </div>
+                            </div>
                             
-                            <p className={'exploreExtraLessonsSubTitle'}>{tile.subtitle}</p>
+                            
                             </CardContent>
+                            {/* <CardActions style={{backgroundColor: "black"}}> */}
+                                
+                            {/* </CardActions> */}
                         </Card>
                     </GridListTile>
                     ))}
