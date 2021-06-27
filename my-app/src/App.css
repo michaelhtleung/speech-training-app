@@ -29,10 +29,11 @@
 }
 
 h5.button-font {
-  font-family: Heebo;
+  font-family: Inconsolata;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
+  text-transform: capitalize;
   text-align: center;
   margin: 0;
 }
@@ -89,7 +90,7 @@ font-size: 20px;
 }
 
 .exploreGridStartText {
-width: 40px;
+width: 120px;
 height: 17px;
 
 
@@ -98,6 +99,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 16px;
 line-height: 17px;
+text-transform: capitalize;
 /* identical to box height */
 
 
@@ -120,7 +122,7 @@ align-items: center;
 padding: 8px;
 
 margin-top: 10px !important;
-width: 236px;
+width: 200px;
 height: 40px;
 
 

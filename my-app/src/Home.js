@@ -2,7 +2,6 @@
 import progress from './imgs/progress.jpg';
 import avatar from './imgs/avatar.jpg';
 import React from "react";
-import firebase from "firebase";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -15,7 +14,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 
-import LessonVideo from './Lesson_video';
 import {useHistory} from 'react-router-dom';
 
 
