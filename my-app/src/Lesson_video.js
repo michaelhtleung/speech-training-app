@@ -4,6 +4,7 @@ import firebase from "firebase";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import YoutubeEmbed from './components/Youtube_embed';
+import {useHistory} from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +41,8 @@ const des = "Lorem Ipsum is simply dummy text of the printing and typesetting in
 
 export default function LessonVideo() {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
+    const routerHistory = useHistory();
+    const handleOnClick = () => routerHistory.push('/exercise');
 
     return (
         <div>
@@ -50,7 +52,7 @@ export default function LessonVideo() {
             <h1 className={'lessonSubTitle'}>Long Vowels</h1>
             <div>
                 <p className={'lessonDescription'}>{description}</p>
-                <Button color="primary" className={'lessonStart'} variant="contained"><span className={'lessonStartText'}>Start Exercise</span></Button>
+                <Button color="primary" className={'lessonStart'} variant="contained" onClick={handleOnClick}><span className={'lessonStartText'}>Start Exercise</span></Button>
             </div>
             </div>
         </div>

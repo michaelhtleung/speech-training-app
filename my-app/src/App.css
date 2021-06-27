@@ -395,6 +395,7 @@ font-family: Inconsolata;
 font-style: normal;
 font-weight: 500;
 font-size: 16px;
+text-transform: capitalize;
 line-height: 17px;
 /* identical to box height */
 
